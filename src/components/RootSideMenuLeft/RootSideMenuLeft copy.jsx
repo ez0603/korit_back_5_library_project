@@ -7,26 +7,27 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useQueryClient } from "react-query";
 import { useEffect } from "react";
-import { RiSettings4Line } from "react-icons/ri";
-import { FiUser } from "react-icons/fi";
 
 function RootSideMenuLeft() {
     const [ show, setShow ] = useRecoilState(menuState);
-    const [ isLogin, setLogin ] = useState(false);
+    const [ ProfileState, setProfileState ] = useState();
     const queryClient = useQueryClient();
     const principalQueryState = queryClient.getQueryState("principalQuery");
-    const navigate = useNavigate();
 
     useEffect(() => {
-        setLogin(() => principalQueryState.status === "success");
+        setProfileState(() => principalQueryState.status === "success");
     }, [principalQueryState.status])
 
     const handleCloseClick = () => {
         setShow(() => false);
     }
 
+    const handleLoginClick = () => {
+        
+    }
+
     return (
-        <div css={s.layout(show)} onClick={(e) => e.stopPropagation()}>
+        <div css={s.layout(show)}>
             <div css={s.header}>
                 <button css={s.menuButton} onClick={handleCloseClick}>
                     <HiMenu/>
@@ -35,28 +36,24 @@ function RootSideMenuLeft() {
 
             <div css={s.profile}>
                 {
-                    !isLogin 
+                    !ProfileState
                     ?
-                    <div css={s.authButtons}>
-                        <button onClick={() => navigate("/auth/signin")}>로그인</button>
-                        <button onClick={() => navigate("/auth/signup")}>회원가입</button>
+                    <div css={s.loginProfile}>
+                        <Link to={"/auth/signin"}>
+                            <button css={s.loginButton} onClick={handleLoginClick}>로그인</button>
+                        </Link>
                     </div>
-                    :
-                    <>
-                        <div css={s.settings}>
-                            <RiSettings4Line />
+                    : 
+                    <div css={s.userLayout}>
+                        <div css={s.userProfile}></div>
+                        <div>
+                            <div>USERID : </div>
+                            <div>USERNAME : </div>
                         </div>
-                        <div css={s.profileBox}>
-                            <div css={s.profileImg}>
-                                <FiUser/> 
-                            </div>
-                            <div css={s.usernameAndEmail}>
-                                <span>{principalQueryState.data.data.username}</span>
-                                <span>{principalQueryState.data.data.email}</span>
-                            </div>
-                        </div>
-                    </>
+                    </div>
+                    
                 }
+
             </div>
 
             <div css={s.menuList}>

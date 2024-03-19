@@ -9,8 +9,6 @@ function App() {
   return (
    <RootLayout>
       <RootContainer>
-        <RootSideMenuLeft />
-        <RootHeader />
         <AuthRoute />
       </RootContainer>
    </RootLayout>
