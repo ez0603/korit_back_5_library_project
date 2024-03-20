@@ -24,7 +24,6 @@ export const header = css`
     padding: 0px 10px;
     width: 100%;
     height: 50px;
-
 `;
 
 export const menuButton = css`
@@ -44,8 +43,7 @@ export const profile = css`
     border-bottom: 1px solid #dbdbdb;
     width: 100%;
     height: 150px;
-    `;
-
+`;
 
 export const authButtons = css`
     box-sizing: border-box;
@@ -136,4 +134,4 @@ export const menuLink = css`
     font-weight: 600;
     text-decoration: none;
     color: #222222;
-    `;
+`;
