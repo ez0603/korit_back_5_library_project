@@ -12,6 +12,7 @@ import { v4 as uuid } from "uuid";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import RightTopButton from "../../../components/RightTopButton/RightTopButton"
 import { registerBook } from "../../../apis/api/bookApi";
+import AdminBookSearch from "../../../components/AdminBookSearch/AdminBookSearch";
 
 function BookManagement() {
     const [ bookTypeOptions, setBookTypeOptions ] = useState([]);
@@ -84,7 +85,7 @@ function BookManagement() {
             categoryId: categoryId.value,
             bookName: bookName.value,
             authorName: authorName.value,
-            publisher: publisher.value,
+            publisherName: publisherName.value,
             coverImgUrl: imgUrl.value
         })
         // 저장 요청
@@ -95,7 +96,7 @@ function BookManagement() {
             categoryId.value,
             bookName.value,
             authorName.value,
-            publisher.value,
+            publisherName.value,
             imgUrl.value
         ])
      }
@@ -106,7 +107,7 @@ function BookManagement() {
     const categoryId = useBookRegisterInput(nextInput, inputRefs[4]); 
     const bookName = useBookRegisterInput(nextInput, inputRefs[5]); // 3,4번은 셀렉트 박스이기 때문에 건너띄고 5 도서명
     const authorName = useBookRegisterInput(nextInput, inputRefs[6]);
-    const publisher = useBookRegisterInput(nextInput, inputRefs[7]);
+    const publisherName = useBookRegisterInput(nextInput, inputRefs[7]);
     const imgUrl = useBookRegisterInput(submit);
 
 
@@ -238,10 +239,10 @@ function BookManagement() {
                                 <th css={s.registerTh}>출판사</th>
                                 <td>
                                     <BookRegisterInput 
-                                        value={publisher.value} 
+                                        value={publisherName.value} 
                                         bookref={inputRefs[6]}
-                                        onChange={publisher.handleOnChange}
-                                        onKeyDown={publisher.handleOnKeyDown}
+                                        onChange={publisherName.handleOnChange}
+                                        onKeyDown={publisherName.handleOnKeyDown}
                                     /> 
                                 </td>
                             </tr>
@@ -273,8 +274,12 @@ function BookManagement() {
                             </tr>
                         </tbody>
                     </table>
-                <div></div>
-            </div>
+                 </div>
+                <AdminBookSearch 
+                    selectStyle={selectStyle}
+                    bookTypeOptions={bookTypeOptions}
+                    categoryOptions={categoryOptions}
+                 />
         </div>
     );
 }
